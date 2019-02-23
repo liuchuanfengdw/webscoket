@@ -1,0 +1,28 @@
+server:
+  port: 8010
+
+spring:
+  thymeleaf:
+    model: LEGACYHTML5
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+  redis:
+    host: 47.99.240.244
+    port: 6379
+    password: dw@lrrAnd1314
+    database: 0
+
+#  datasource:
+#    url: jdbc:mysql://192.168.2.235:3306/dw_chat_test
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.jdbc.Driver
+#    jpa:
+#      hibernate:
+#        ddl-auto: update #自动更新
+#      show-sql: true  #日志中显示sql语句
+

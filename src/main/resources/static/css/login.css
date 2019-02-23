@@ -1,0 +1,40 @@
+#center-div{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-150px 0 0 -200px;
+    width:400px;
+    height:300px;
+    border:1px solid #008800;
+}
+#accountDiv{
+    margin-top: 12%;
+    margin-left: -42%;
+    margin-bottom: 1%;
+    font-size: x-large;
+}
+#pwdDiv{
+    margin-left: -42%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: x-large;
+}
+button{
+    height: 40px;
+    vertical-align: top;
+    /* padding: 0; */
+    width: 80px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    background: #B3D33F;
+    color: #fff;
+    width: 62%;
+    margin-top: 6%;
+}
+input{
+    width: 60%;
+    height: 7%;
+    border: 1px solid #008800;
+    border-radius: 10px;
+}

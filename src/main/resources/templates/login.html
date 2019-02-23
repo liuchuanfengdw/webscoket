@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+    <script>
+        window.onload=function (){
+            //监听回车键
+            $(document).keyup(function(event){
+                if(event.keyCode == 13){
+                    login();
+                }
+            });
+        }
+        function login(){
+            var userName = document.getElementById("userName").value;
+            var password = document.getElementById("password").value;
+            $.ajax({  // ajax登陆请求
+                url:"/login",
+                type:"post",
+                data:{"userName":userName,"password":password},
+                async:false,
+                success:function(res){
+                    if(res){
+                        location.href="/index?userName="+userName;
+                    }else{
+                        alert("账号或密码错误");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <div id="center-div">
+            <div id="accountDiv"><span>账号：</span></div>
+            <input id="userName" name="userName" placeholder="请输入账号" type="text"/>
+            <div id="pwdDiv"><span>密码：</span></div>
+            <input id="password" name="password" placeholder="请输入密码" type="password"/>
+            <button onclick="login()">登&nbsp;&nbsp;录</button>
+        </div>
+    </center>
+</body>
+</html>

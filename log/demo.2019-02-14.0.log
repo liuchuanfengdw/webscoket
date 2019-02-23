@@ -1,0 +1,11 @@
+2019-02-14 15:01:49,232 INFO (StartupInfoLogger.java:48)- Starting DemoApplication on ETL-PC with PID 10592 (started by Administrator in E:\谷歌下载\webscoket-master\webscoket-master)
+2019-02-14 15:01:49,237 DEBUG (StartupInfoLogger.java:51)- Running with Spring Boot v1.5.9.RELEASE, Spring v4.3.13.RELEASE
+2019-02-14 15:01:49,237 INFO (SpringApplication.java:593)- No active profile set, falling back to default profiles: default
+2019-02-14 15:01:55,940 INFO (StartupInfoLogger.java:57)- Started DemoApplication in 7.333 seconds (JVM running for 10.084)
+2019-02-14 15:07:08,394 INFO (StartupInfoLogger.java:48)- Starting DemoApplication on ETL-PC with PID 10592 (started by Administrator in E:\谷歌下载\webscoket-master\webscoket-master)
+2019-02-14 15:07:08,395 DEBUG (StartupInfoLogger.java:51)- Running with Spring Boot v1.5.9.RELEASE, Spring v4.3.13.RELEASE
+2019-02-14 15:07:08,395 INFO (SpringApplication.java:593)- No active profile set, falling back to default profiles: default
+2019-02-14 15:07:11,092 INFO (StartupInfoLogger.java:57)- Started DemoApplication in 2.764 seconds (JVM running for 325.23)
+2019-02-14 15:07:25,282 INFO (StartupInfoLogger.java:48)- Starting DemoApplication on ETL-PC with PID 11768 (started by Administrator in E:\谷歌下载\webscoket-master\webscoket-master)
+2019-02-14 15:07:25,286 DEBUG (StartupInfoLogger.java:51)- Running with Spring Boot v1.5.9.RELEASE, Spring v4.3.13.RELEASE
+2019-02-14 15:07:25,287 INFO (SpringApplication.java:593)- No active profile set, falling back to default profiles: default

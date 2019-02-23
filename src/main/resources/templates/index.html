@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>聊天室</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+    <script th:src="@{/js/index.js}"></script>
+    <script type="text/javascript">
+        var toName = "";
+        //连接对象
+        var websocket = null;
+        var name = null;
+        window.onload=function (){
+            ChangeSize();
+            //获取在线好友
+            connectWebsocket();
+            //监听回车键
+            $(document).keyup(function(event){
+                if(event.keyCode == 13){
+                    send();
+                }
+            });
+        };
+        $(window).resize(function(){
+            ChangeSize();
+        });
+        //建立连接
+        function connectWebsocket(argument) {
+            name = document.getElementById("name").value;
+            if (name == "") {
+                alert("请输入用户名");
+                return;
+            }
+            //先判断浏览器是否支持webscoket
+            if ("websocket" in window){
+                var driver = getOSInfo() + "@" + getAgent();
+                websocket = new WebSocket("ws://192.168.1.106:8010/websocket/"+name);
+            }else{
+                alert("浏览器不支持");
+                return false;
+            }
+            //建立连接成功的方法
+            websocket.onopen=function(event){
+                setTip("提示：连接成功");
+            }
+            websocket.onclose=function(event){
+                setTip("提示：连接关闭");
+            }
+            websocket.onmessage=function(event){
+                // 可以获取到后端sendtext（）传给前端的数据
+                setMessage(event.data);
+            }
+            websocket.onerror=function(event){
+                setTip("提示：连接异常");
+            }
+        }
+        function setTip(msg){
+            var chatArea = document.getElementById('chatArea');
+            msg = '<span class="tip">'+msg+'</span>'
+            chatArea.innerHTML += msg+"<br/>";
+        }
+        // 连接成功打印的消息
+        function setMessage(msg){
+            var chatArea = document.getElementById('chatArea');
+            var msgObj = JSON.parse(msg);
+            console.log(msgObj)
+            if(msgObj.type == "0"){
+                msg = '<div><span class="tip">'+msgObj.msg+'</span></div>';
+                chatArea.innerHTML += msg+"<br/>";
+            }else if(msgObj.type == "2"){
+                $("#other").empty();
+                //拼接在线人员
+                var users = msgObj.users;
+                for(var i = 0;i<users.length;i++){
+                    var other = users[i].userName;
+                    var li = $("<li onclick='chatToPeople(\""+other+"\")'></li>");
+                    var img = $('<img src=""/>');
+                    var span = $('<span>'+other+'</span>');
+                    li.append(img).append(span);
+                    $("#other").append(li);
+                }
+            }else{
+                if(msgObj.name == name){
+                    msg = '<div style="text-align: right;margin-top: 2%;"><span class="msg">'+msgObj.msg+'</span>:'+msgObj.name+'</div>';
+                }else{
+                    msg = '<div style="text-align: left;margin-top: 2%;">'+msgObj.name+':<span class="msg">'+msgObj.msg+'</span></div>';
+                }
+                chatArea.innerHTML += msg+"<br/>";
+            }
+        }
+        //发送消息
+        function send(){
+            if(toName == ""){
+                alert("请选择聊天好友");
+            }else{
+                var message = document.getElementById('text').value;
+                var socketMsg = {message:message,toUser:toName};
+                if (toName == ""){
+                    socketMsg.type = 0;//群聊
+                } else {
+                    socketMsg.type = 1;//单聊
+                }
+                // websocket.send(name+":"+message);
+                websocket.send(JSON.stringify(socketMsg));//将json对象转换为json字符串
+                $("#text").val("");
+            }
+        }
+        //关闭连接
+        function closeWebsocket() {
+            websocket.close();
+            location.href="/toLogin";
+        }
+        //清屏
+        function clearWindow(){
+            document.getElementById("chatArea").innerHTML = " ";
+        }
+        //监听窗口关闭事件，窗口关闭，连接关闭
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+        function getAgent(){
+            var ua = navigator.userAgent.toLowerCase();
+            var b = browserInfo();
+            return b.browser+b.version;
+        }
+        /*获取操作系统*/
+        function getOSType(){
+            var o = getOSInfo();
+            alert(o);
+        }
+        function chatToPeople(obj){
+            toName = obj;
+            clearWindow();
+            var toWho = "<span style='text-align: center;line-height: 35px;'>"+obj+"</span>";
+            document.getElementById("toPeople").innerHTML = toWho;
+        }
+    </script>
+</head>
+<body>
+    <input type="hidden" id="name" th:value="${userName}"/>
+    <div id="chat">
+        <div id="online">
+            <ul style="list-style-type:none;">
+                <li id="myself">
+                    <img src=""/>
+                    <span th:text="${userName}"></span>
+                </li>
+            </ul>
+            <ul style="list-style-type:none;" id="other">
+
+            </ul>
+        </div>
+        <div id="message">
+            <div id="toPeople"></div>
+            <div id="chatArea"></div>
+        </div>
+        <div id="textDiv">
+            <textarea id="text"></textarea>
+        </div>
+        <div id="buttenArea">
+            <button onclick="closeWebsocket()">退出</button>
+            <button onclick="clearWindow()">清屏</button>
+            <button onclick="send()">发送</button>
+        </div>
+    </div>
+</body>
+</html>
