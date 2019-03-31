@@ -1,6 +1,5 @@
 package com.example.webscoket.demo.webscoket;
 
-import com.alibaba.druid.sql.dialect.mysql.visitor.transform.NameResolveVisitor;
 import com.alibaba.fastjson.JSON;
 import com.example.webscoket.demo.Cache.OnlineCache;
 import com.example.webscoket.demo.configuation.MyEndpointConfigure;
@@ -26,6 +25,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * 虽然@component默认是单例模式的，
  * 但在spring boot 中还是会为每一个webscoket连接初始化一个bean，
  * 所以这里使用一个静态的set保存spring boot创建的bean--MyWebscoket
+ * @Author: DING WEI
+ * @Date: 2019-03-24 16:53
+ * @Version: 1.0
  */
 @ServerEndpoint ( value="/websocket/{name}" ,configurator= MyEndpointConfigure.class)
 @Component

@@ -16,8 +16,6 @@ import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br>
- * 〈网关启动文件〉
- *
  * @author DING WEI
  * @create 2019/2/15 13:12:12
  * @since 1.0.0
